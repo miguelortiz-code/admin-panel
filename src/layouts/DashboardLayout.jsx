@@ -3,18 +3,23 @@ import Sidebar from "../components/organisms/Sidebar";
 import Navbar from "../components/organisms/Navbar";
 
 export default function DashboardLayout({ children }) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
-    <div className="h-screen grid grid-cols-1 md:grid-cols-[250px_1fr] grid-rows-[70px_1fr]">
-      
+    <div
+      className="h-screen grid transition-all duration-300"
+      style={{
+        gridTemplateColumns: isCollapsed ? "80px 1fr" : "250px 1fr",
+        gridTemplateRows: "70px 1fr",
+      }}
+    >
       {/* Sidebar */}
       <div className="row-span-2">
-        <Sidebar isOpen={isOpen} />
+        <Sidebar isCollapsed={isCollapsed} />
       </div>
 
       {/* Navbar */}
-      <Navbar toggleSidebar={() => setIsOpen(!isOpen)} />
+      <Navbar toggleSidebar={() => setIsCollapsed(!isCollapsed)} />
 
       {/* Content */}
       <main className="p-6 bg-gray-100 overflow-auto">

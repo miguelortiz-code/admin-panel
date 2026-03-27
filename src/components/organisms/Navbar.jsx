@@ -13,7 +13,7 @@ export default function Navbar({ toggleSidebar }) {
         {/* Hamburger */}
         <button
           onClick={toggleSidebar}
-          className="p-2 rounded-lg cursor-pointer hover:bg-gray-100 transition md:hidden"
+          className="p-2 rounded-lg cursor-pointer hover:bg-gray-100 transition"
         >
           <Menu className="w-6 h-6 text-gray-700" />
         </button>
