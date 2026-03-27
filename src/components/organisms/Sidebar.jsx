@@ -1,11 +1,6 @@
 import { useState } from "react";
+import { menuSections } from "../../config/navigation";
 import {
-  LayoutDashboard,
-  Users,
-  Wrench,
-  FileText,
-  Shield,
-  Settings,
   ChevronDown,
   Moon,
   Sun,
@@ -15,41 +10,6 @@ export default function Sidebar({ isCollapsed }) {
   const [activeMenu, setActiveMenu] = useState(null);
   const [activeItem, setActiveItem] = useState("Dashboard");
   const [darkMode, setDarkMode] = useState(false);
-
-  const menuSections = [
-    {
-      title: "GENERAL",
-      items: [{ name: "Dashboard", icon: LayoutDashboard }],
-    },
-    {
-      title: "GESTIÓN",
-      items: [
-        {
-          name: "Clientes",
-          icon: Users,
-          submenu: ["Lista", "Crear cliente"],
-        },
-        {
-          name: "Servicios",
-          icon: Wrench,
-          submenu: ["Lista", "Crear servicio"],
-        },
-      ],
-    },
-    {
-      title: "SISTEMA",
-      items: [
-        { name: "Reportes", icon: FileText },
-        { name: "Auditoría", icon: Shield },
-        {
-          name: "Configuración",
-          icon: Settings,
-          submenu: ["Planes", "Categorías"],
-        },
-      ],
-    },
-  ];
-
   const toggleMenu = (menuName) => {
     setActiveMenu(activeMenu === menuName ? null : menuName);
   };
