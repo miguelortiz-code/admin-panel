@@ -1,15 +1,13 @@
 import { useState } from "react";
 import { menuSections } from "../../config/navigation";
-import {
-  ChevronDown,
-  Moon,
-  Sun,
-} from "lucide-react";
+import { ChevronDown } from "lucide-react";
+import ThemeToggle from "../atoms/ThemeToggle";
 
 export default function Sidebar({ isCollapsed }) {
   const [activeMenu, setActiveMenu] = useState(null);
   const [activeItem, setActiveItem] = useState("Dashboard");
   const [darkMode, setDarkMode] = useState(false);
+
   const toggleMenu = (menuName) => {
     setActiveMenu(activeMenu === menuName ? null : menuName);
   };
@@ -26,7 +24,7 @@ export default function Sidebar({ isCollapsed }) {
       <div className="flex-1 p-2">
         {menuSections.map((section) => (
           <div key={section.title} className="mb-4">
-            
+
             {!isCollapsed && (
               <p className="text-xs text-gray-400 px-2 mb-2">
                 {section.title}
@@ -41,7 +39,7 @@ export default function Sidebar({ isCollapsed }) {
 
                 return (
                   <div key={item.name}>
-                    
+
                     {/* ITEM */}
                     <div
                       onClick={() => {
@@ -49,18 +47,13 @@ export default function Sidebar({ isCollapsed }) {
                         if (item.submenu) toggleMenu(item.name);
                       }}
                       className={`
-                        relative group flex items-center 
+                        relative group flex items-center
                         ${isCollapsed ? "justify-center" : "justify-between"}
                         p-2 rounded-lg cursor-pointer transition-all duration-200
                         ${isActive ? "bg-gray-800" : "hover:bg-gray-800"}
                       `}
                     >
-                      {/* Left */}
-                      <div
-                        className={`flex items-center ${
-                          isCollapsed ? "" : "gap-3"
-                        }`}
-                      >
+                      <div className={`flex items-center ${!isCollapsed && "gap-3"}`}>
                         <Icon className="w-5 h-5" />
 
                         {!isCollapsed && (
@@ -68,7 +61,6 @@ export default function Sidebar({ isCollapsed }) {
                         )}
                       </div>
 
-                      {/* Arrow */}
                       {!isCollapsed && item.submenu && (
                         <ChevronDown
                           className={`w-4 h-4 transition-transform duration-200 ${
@@ -126,45 +118,13 @@ export default function Sidebar({ isCollapsed }) {
         ))}
       </div>
 
-      {/* DARK MODE (BOTTOM) */}
+      {/* DARK MODE */}
       <div className="p-3 border-t border-gray-800">
-        <div
-          onClick={() => setDarkMode(!darkMode)}
-          className={`
-            flex items-center cursor-pointer rounded-lg p-2 hover:bg-gray-800 transition
-            ${isCollapsed ? "justify-center" : "justify-between"}
-          `}
-        >
-          <div className="flex items-center gap-3">
-            {darkMode ? (
-              <Sun className="w-5 h-5" />
-            ) : (
-              <Moon className="w-5 h-5" />
-            )}
-
-            {!isCollapsed && (
-              <span className="text-sm">
-                {darkMode ? "Light Mode" : "Dark Mode"}
-              </span>
-            )}
-          </div>
-
-          {!isCollapsed && (
-            <div
-              className={`
-                w-10 h-5 flex items-center bg-gray-600 rounded-full p-1
-                ${darkMode ? "bg-blue-600" : ""}
-              `}
-            >
-              <div
-                className={`
-                  bg-white w-4 h-4 rounded-full shadow-md transform transition
-                  ${darkMode ? "translate-x-5" : ""}
-                `}
-              />
-            </div>
-          )}
-        </div>
+        <ThemeToggle
+          isCollapsed={isCollapsed}
+          darkMode={darkMode}
+          toggle={() => setDarkMode(!darkMode)}
+        />
       </div>
     </aside>
   );
