@@ -7,11 +7,14 @@ import {
   Shield,
   Settings,
   ChevronDown,
+  Moon,
+  Sun,
 } from "lucide-react";
 
 export default function Sidebar({ isCollapsed }) {
   const [activeMenu, setActiveMenu] = useState(null);
   const [activeItem, setActiveItem] = useState("Dashboard");
+  const [darkMode, setDarkMode] = useState(false);
 
   const menuSections = [
     {
@@ -60,18 +63,16 @@ export default function Sidebar({ isCollapsed }) {
       </div>
 
       {/* MENU */}
-      <div className="flex-1 overflow-y-auto p-2">
+      <div className="flex-1 p-2">
         {menuSections.map((section) => (
           <div key={section.title} className="mb-4">
             
-            {/* Section title */}
             {!isCollapsed && (
               <p className="text-xs text-gray-400 px-2 mb-2">
                 {section.title}
               </p>
             )}
 
-            {/* Items */}
             <div className="flex flex-col gap-1">
               {section.items.map((item) => {
                 const Icon = item.icon;
@@ -88,12 +89,18 @@ export default function Sidebar({ isCollapsed }) {
                         if (item.submenu) toggleMenu(item.name);
                       }}
                       className={`
-                        relative group flex items-center justify-between p-2 rounded-lg cursor-pointer transition-all duration-200
+                        relative group flex items-center 
+                        ${isCollapsed ? "justify-center" : "justify-between"}
+                        p-2 rounded-lg cursor-pointer transition-all duration-200
                         ${isActive ? "bg-gray-800" : "hover:bg-gray-800"}
                       `}
                     >
                       {/* Left */}
-                      <div className="flex items-center gap-3">
+                      <div
+                        className={`flex items-center ${
+                          isCollapsed ? "" : "gap-3"
+                        }`}
+                      >
                         <Icon className="w-5 h-5" />
 
                         {!isCollapsed && (
@@ -112,18 +119,16 @@ export default function Sidebar({ isCollapsed }) {
 
                       {/* TOOLTIP */}
                       {isCollapsed && (
-                        <span
-                          className="
-                            absolute left-full ml-3
-                            bg-gray-800 text-white text-xs px-2 py-1 rounded-md
-                            opacity-0 translate-x-2
-                            group-hover:opacity-100 group-hover:translate-x-0
-                            transition-all duration-200 ease-in-out
-                            whitespace-nowrap
-                            z-50
-                            pointer-events-none
-                          "
-                        >
+                        <span className="
+                          absolute left-full ml-3
+                          bg-gray-800 text-white text-xs px-2 py-1 rounded-md
+                          opacity-0 translate-x-2
+                          group-hover:opacity-100 group-hover:translate-x-0
+                          transition-all duration-200
+                          whitespace-nowrap
+                          z-50
+                          pointer-events-none
+                        ">
                           {item.name}
                         </span>
                       )}
@@ -133,7 +138,7 @@ export default function Sidebar({ isCollapsed }) {
                     {!isCollapsed && item.submenu && (
                       <div
                         className={`
-                          overflow-hidden transition-all duration-300 ease-in-out
+                          overflow-hidden transition-all duration-300
                           ${
                             isOpen
                               ? "max-h-40 opacity-100 mt-1"
@@ -159,6 +164,47 @@ export default function Sidebar({ isCollapsed }) {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* DARK MODE (BOTTOM) */}
+      <div className="p-3 border-t border-gray-800">
+        <div
+          onClick={() => setDarkMode(!darkMode)}
+          className={`
+            flex items-center cursor-pointer rounded-lg p-2 hover:bg-gray-800 transition
+            ${isCollapsed ? "justify-center" : "justify-between"}
+          `}
+        >
+          <div className="flex items-center gap-3">
+            {darkMode ? (
+              <Sun className="w-5 h-5" />
+            ) : (
+              <Moon className="w-5 h-5" />
+            )}
+
+            {!isCollapsed && (
+              <span className="text-sm">
+                {darkMode ? "Light Mode" : "Dark Mode"}
+              </span>
+            )}
+          </div>
+
+          {!isCollapsed && (
+            <div
+              className={`
+                w-10 h-5 flex items-center bg-gray-600 rounded-full p-1
+                ${darkMode ? "bg-blue-600" : ""}
+              `}
+            >
+              <div
+                className={`
+                  bg-white w-4 h-4 rounded-full shadow-md transform transition
+                  ${darkMode ? "translate-x-5" : ""}
+                `}
+              />
+            </div>
+          )}
+        </div>
       </div>
     </aside>
   );

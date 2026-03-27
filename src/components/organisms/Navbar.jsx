@@ -1,11 +1,9 @@
 import { Menu, Moon, Sun } from "lucide-react";
-import { useState } from "react";
 import SearchBar from "../molecules/SearchBar";
 import NotificationBell from "../molecules/NotificationBell";
 import UserMenu from "../molecules/UserMenu";
 
 export default function Navbar({ toggleSidebar }) {
-  const [darkMode, setDarkMode] = useState(false);
 
   return (
     <header className="grid grid-cols-[auto_1fr_auto] items-center px-4 bg-white shadow h-17.5">
@@ -28,17 +26,6 @@ export default function Navbar({ toggleSidebar }) {
       {/* RIGHT */}
       <div className="flex items-center justify-end gap-3">
         <NotificationBell />
-
-        <button
-          onClick={() => setDarkMode(!darkMode)}
-          className="p-2 rounded-lg hover:bg-gray-100 transition"
-        >
-          {darkMode ? (
-            <Sun className="w-5 h-5 text-gray-700" />
-          ) : (
-            <Moon className="w-5 h-5 text-gray-700" />
-          )}
-        </button>
 
         <UserMenu />
       </div>
