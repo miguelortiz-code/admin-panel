@@ -27,7 +27,7 @@ export default function UserMenu() {
 
       {/* Dropdown */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-56 bg-white shadow-lg rounded-xl p-2 border">
+        <div className="absolute right-0 mt-2 w-56 bg-white shadow-lg rounded-xl p-2 border border-gray-300">
           <ul className="flex flex-col text-sm">
 
             <li className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100 cursor-pointer">
@@ -45,7 +45,7 @@ export default function UserMenu() {
               Modo oscuro
             </li>
 
-            <hr className="my-2" />
+            <hr className="my-2 text-gray-200" />
 
             <li className="flex items-center gap-2 p-2 rounded-lg hover:bg-red-50 text-red-500 cursor-pointer">
               <LogOut className="w-4 h-4" />
