@@ -1,16 +1,12 @@
 import { NavLink } from 'react-router-dom'
 import { Avatar } from '../../atoms/Avatar'
+import { useAuthStore } from '../../../store/auth.store'
 import { cn } from '../../../utils/cn'
 
 interface NavItem {
   label: string
   path: string
   icon: React.ReactNode
-}
-
-interface SidebarProps {
-  userName: string
-  userEmail: string
 }
 
 const navItems: NavItem[] = [
@@ -92,17 +88,19 @@ const navItems: NavItem[] = [
   },
 ]
 
-export function Sidebar({ userName, userEmail }: SidebarProps) {
+export function Sidebar() {
+  const { user } = useAuthStore()
+
   return (
-    <aside className="flex h-screen w-64 flex-col border-r border-slate-200 bg-white">
+    <aside className="flex h-screen w-64 flex-col border-r border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-900">
 
       {/* Logo */}
-      <div className="flex h-16 items-center gap-3 border-b border-slate-200 px-6">
+      <div className="flex h-16 items-center gap-3 border-b border-slate-200 px-6 dark:border-slate-700">
         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-600">
           <span className="text-sm font-bold text-white">S</span>
         </div>
         <div>
-          <p className="text-sm font-semibold text-slate-900">SuperAdmin</p>
+          <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">SuperAdmin</p>
           <p className="text-xs text-slate-400">Panel de control</p>
         </div>
       </div>
@@ -119,8 +117,8 @@ export function Sidebar({ userName, userEmail }: SidebarProps) {
                   cn(
                     'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors',
                     isActive
-                      ? 'bg-violet-50 font-medium text-violet-700'
-                      : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                      ? 'bg-violet-50 font-medium text-violet-700 dark:bg-violet-950 dark:text-violet-300'
+                      : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100'
                   )
                 }
               >
@@ -133,12 +131,14 @@ export function Sidebar({ userName, userEmail }: SidebarProps) {
       </nav>
 
       {/* User */}
-      <div className="border-t border-slate-200 p-4">
+      <div className="border-t border-slate-200 p-4 dark:border-slate-700">
         <div className="flex items-center gap-3">
-          <Avatar name={userName} size="sm" />
+          <Avatar name={user?.full_name ?? 'Admin'} size="sm" />
           <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-medium text-slate-900">{userName}</p>
-            <p className="truncate text-xs text-slate-400">{userEmail}</p>
+            <p className="truncate text-sm font-medium text-slate-900 dark:text-slate-100">
+              {user?.full_name ?? 'Administrador'}
+            </p>
+            <p className="truncate text-xs text-slate-400">{user?.email ?? ''}</p>
           </div>
         </div>
       </div>
