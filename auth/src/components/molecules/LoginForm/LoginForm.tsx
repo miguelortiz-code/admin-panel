@@ -13,6 +13,7 @@ interface LoginFormProps {
 export function LoginForm({ onSubmit, isLoading, error }: LoginFormProps) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -48,7 +49,7 @@ export function LoginForm({ onSubmit, isLoading, error }: LoginFormProps) {
         </Label>
         <Input
           id="password"
-          type="password"
+          type={showPassword ? 'text' : 'password'}
           placeholder="••••••••"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -57,6 +58,27 @@ export function LoginForm({ onSubmit, isLoading, error }: LoginFormProps) {
           required
           autoComplete="current-password"
         />
+
+        {/* Toggle switch */}
+        <label className="flex cursor-pointer items-center gap-2 self-start">
+          <div
+            onClick={() => setShowPassword(!showPassword)}
+            className={cn(
+              'relative h-5 mt-2 w-9 rounded-full transition-colors duration-200',
+              showPassword ? 'bg-violet-600' : 'bg-slate-200'
+            )}
+          >
+            <span
+              className={cn(
+                'absolute top-0.5 h-4 w-4 rounded-full bg-white shadow-sm transition-transform duration-200',
+                showPassword ? 'translate-x-4' : 'translate-x-0.5'
+              )}
+            />
+          </div>
+          <span className="text-xs text-slate-500 select-none">
+            Mostrar contraseña
+          </span>
+        </label>
       </div>
 
       {/* Error message */}
