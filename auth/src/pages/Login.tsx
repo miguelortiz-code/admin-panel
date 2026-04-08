@@ -5,8 +5,15 @@ import { useRedirectIfAuthenticated } from '../hooks/useRedirectIfAuthenticated'
 
 export function LoginPage() {
   const { isLoading, error, signIn } = useAuth()
+  const { checking } = useRedirectIfAuthenticated()
 
-  useRedirectIfAuthenticated()
+  if (checking) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-slate-50">
+        <div className="h-6 w-6 animate-spin rounded-full border-2 border-violet-600 border-t-transparent" />
+      </div>
+    )
+  }
 
   return (
     <AuthCard
