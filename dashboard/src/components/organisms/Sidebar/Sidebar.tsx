@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import { Avatar } from '../../atoms/Avatar'
 import { useAuthStore } from '../../../store/auth.store'
+import { useUIStore } from '../../../store/ui.store'
 import { cn } from '../../../utils/cn'
 
 interface NavItem {
@@ -90,23 +91,33 @@ const navItems: NavItem[] = [
 
 export function Sidebar() {
   const { user } = useAuthStore()
+  const { isSidebarOpen } = useUIStore()
 
   return (
-    <aside className="flex h-screen w-64 flex-col border-r border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-900">
+    <aside className={cn(
+      'flex h-screen flex-col border-r border-slate-200 bg-white transition-all duration-300 ease-in-out',
+      'dark:border-slate-700 dark:bg-slate-900',
+      isSidebarOpen ? 'w-64' : 'w-16'
+    )}>
 
       {/* Logo */}
-      <div className="flex h-16 items-center gap-3 border-b border-slate-200 px-6 dark:border-slate-700">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-600">
+      <div className={cn(
+        'flex h-16 shrink-0 items-center border-b border-slate-200 dark:border-slate-700',
+        isSidebarOpen ? 'gap-3 px-6' : 'justify-center px-0'
+      )}>
+        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-violet-600">
           <span className="text-sm font-bold text-white">S</span>
         </div>
-        <div>
-          <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">SuperAdmin</p>
-          <p className="text-xs text-slate-400">Panel de control</p>
-        </div>
+        {isSidebarOpen && (
+          <div>
+            <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">SuperAdmin</p>
+            <p className="text-xs text-slate-400">Panel de control</p>
+          </div>
+        )}
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 overflow-y-auto px-3 py-4">
+      <nav className="flex-1 overflow-y-auto px-2 py-4">
         <ul className="flex flex-col gap-1">
           {navItems.map((item) => (
             <li key={item.path}>
@@ -115,15 +126,17 @@ export function Sidebar() {
                 end={item.path === '/'}
                 className={({ isActive }) =>
                   cn(
-                    'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors',
+                    'flex items-center rounded-lg px-3 py-2.5 text-sm transition-colors',
+                    isSidebarOpen ? 'gap-3' : 'justify-center',
                     isActive
                       ? 'bg-violet-50 font-medium text-violet-700 dark:bg-violet-950 dark:text-violet-300'
                       : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100'
                   )
                 }
+                title={!isSidebarOpen ? item.label : undefined}
               >
-                {item.icon}
-                {item.label}
+                <span className="shrink-0">{item.icon}</span>
+                {isSidebarOpen && <span>{item.label}</span>}
               </NavLink>
             </li>
           ))}
@@ -131,17 +144,23 @@ export function Sidebar() {
       </nav>
 
       {/* User */}
-      <div className="border-t border-slate-200 p-4 dark:border-slate-700">
-        <div className="flex items-center gap-3">
-          <Avatar name={user?.full_name ?? 'Admin'} size="sm" />
-          <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-medium text-slate-900 dark:text-slate-100">
-              {user?.full_name ?? 'Administrador'}
-            </p>
-            <p className="truncate text-xs text-slate-400">{user?.email ?? ''}</p>
+      {isSidebarOpen ? (
+        <div className="border-t border-slate-200 p-4 dark:border-slate-700">
+          <div className="flex items-center gap-3">
+            <Avatar name={user?.full_name ?? 'Admin'} size="sm" />
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-sm font-medium text-slate-900 dark:text-slate-100">
+                {user?.full_name ?? 'Administrador'}
+              </p>
+              <p className="truncate text-xs text-slate-400">{user?.email ?? ''}</p>
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="border-t border-slate-200 p-3 dark:border-slate-700 flex justify-center">
+          <Avatar name={user?.full_name ?? 'Admin'} size="sm" />
+        </div>
+      )}
 
     </aside>
   )

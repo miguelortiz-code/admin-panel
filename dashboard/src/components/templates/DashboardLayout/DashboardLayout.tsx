@@ -8,27 +8,21 @@ export function DashboardLayout() {
   const { isSidebarOpen } = useUIStore()
 
   return (
-    <div className="grid h-screen overflow-hidden bg-slate-50 dark:bg-slate-950"
-      style={{
-        gridTemplateColumns: isSidebarOpen ? '256px 1fr' : '0px 1fr',
-        gridTemplateRows: '64px 1fr',
-      }}
-    >
-      {/* Sidebar */}
-      <aside className={cn(
-        'row-span-2 overflow-hidden transition-all duration-300',
-        isSidebarOpen ? 'w-64' : 'w-0'
+    <div className="flex h-screen overflow-hidden bg-slate-50 dark:bg-slate-950">
+
+      {/* Sidebar — empuja el contenido, no se superpone */}
+      <Sidebar />
+
+      {/* Contenido derecho */}
+      <div className={cn(
+        'flex flex-1 flex-col overflow-hidden transition-all duration-300 ease-in-out',
+        isSidebarOpen ? 'ml-0' : 'ml-0'
       )}>
-        <Sidebar />
-      </aside>
-
-      {/* Header */}
-      <Header />
-
-      {/* Main */}
-      <main className="overflow-y-auto p-6">
-        <Outlet />
-      </main>
+        <Header />
+        <main className="flex-1 overflow-y-auto p-6">
+          <Outlet />
+        </main>
+      </div>
 
     </div>
   )
