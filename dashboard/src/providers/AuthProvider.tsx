@@ -1,15 +1,8 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
+import type { Session } from '@supabase/supabase-js'
 import { supabase } from '../lib/supabase'
 import { useAuthStore } from '../store/auth.store'
-import type { Session } from '@supabase/supabase-js'
-
-interface AuthContextValue {
-  session: Session | null
-  isLoading: boolean
-  signOut: () => Promise<void>
-}
-
-const AuthContext = createContext<AuthContextValue | null>(null)
+import { AuthContext } from '../context/AuthContext'
 
 const isDevelopment = import.meta.env.DEV
 
@@ -21,7 +14,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const initSession = async () => {
       if (isDevelopment) {
-        // Desarrollo: lee tokens desde URL params
         const params = new URLSearchParams(window.location.search)
         const accessToken = params.get('access_token')
         const refreshToken = params.get('refresh_token')
@@ -41,15 +33,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             })
           }
 
-          // Limpia tokens de la URL
           window.history.replaceState({}, '', window.location.pathname)
           setIsLoading(false)
           return
         }
       }
 
-      // Producción y desarrollo (sesión existente):
-      // Lee la sesión desde localStorage o cookie según el entorno
       const { data: { session } } = await supabase.auth.getSession()
       setSession(session)
       if (session?.user) {
@@ -104,10 +93,4 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       {children}
     </AuthContext.Provider>
   )
-}
-
-export function useAuth(): AuthContextValue {
-  const context = useContext(AuthContext)
-  if (!context) throw new Error('useAuth must be used inside AuthProvider')
-  return context
 }

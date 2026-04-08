@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from 'react-router-dom'
-import { useAuth } from '../../providers/AuthProvider'
+import { useAuth } from '../../hooks/useAuth'
 import { FullscreenLoader } from '../../components/templates/FullscreenLoader'
 
 export function AuthGuard() {
