@@ -1,9 +1,12 @@
 import { AuthCard } from '../components/organisms/AuthCard'
 import { LoginForm } from '../components/molecules/LoginForm'
 import { useAuth } from '../hooks/useAuth'
+import { useRedirectIfAuthenticated } from '../hooks/useRedirectIfAuthenticated'
 
 export function LoginPage() {
   const { isLoading, error, signIn } = useAuth()
+
+  useRedirectIfAuthenticated()
 
   return (
     <AuthCard

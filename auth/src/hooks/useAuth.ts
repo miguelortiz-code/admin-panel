@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { toast } from 'sonner'
 import { supabase } from '../lib/supabase'
 
 interface UseAuthReturn {
@@ -22,17 +23,23 @@ export function useAuth(): UseAuthReturn {
       })
 
       if (error) {
-        setError(getErrorMessage(error.message))
+        const message = getErrorMessage(error.message)
+        setError(message)
+        toast.error(message)
         return
       }
 
       if (data.session) {
-        // Redirige al dashboard después del login exitoso
-        window.location.href = import.meta.env.VITE_DASHBOARD_URL
+        toast.success('Bienvenido de nuevo')
+        setTimeout(() => {
+          window.location.href = import.meta.env.VITE_DASHBOARD_URL
+        }, 800)
       }
 
     } catch {
-      setError('Ocurrió un error inesperado. Intenta de nuevo.')
+      const message = 'Ocurrió un error inesperado. Intenta de nuevo.'
+      setError(message)
+      toast.error(message)
     } finally {
       setIsLoading(false)
     }
@@ -41,7 +48,6 @@ export function useAuth(): UseAuthReturn {
   return { isLoading, error, signIn }
 }
 
-// Traduce los errores de Supabase a mensajes amigables
 function getErrorMessage(message: string): string {
   const errors: Record<string, string> = {
     'Invalid login credentials': 'Correo o contraseña incorrectos.',
