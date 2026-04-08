@@ -1,5 +1,15 @@
+import { Toaster } from 'sonner'
 import { LoginPage } from './pages/Login'
 
 export default function App() {
-  return <LoginPage />
+  return (
+    <>
+      <Toaster
+        position="top-right"
+        richColors
+        closeButton
+      />
+      <LoginPage />
+    </>
+  )
 }
