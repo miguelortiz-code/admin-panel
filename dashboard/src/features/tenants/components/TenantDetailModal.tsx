@@ -1,6 +1,6 @@
 import { Modal } from '../../../components/organisms/Modal'
 import { Button } from '../../../components/atoms/Button'
-import { StatusBadge } from '../../../components/molecules/StatusBadge'
+import { Badge } from '../../../components/atoms/Badge'
 import { Spinner } from '../../../components/atoms/Spinner'
 import { useTenantDetail } from '../hooks/useTenantDetail'
 import type { Tenant, TenantDetail, Subscription } from '../types/tenant.types'
@@ -85,7 +85,13 @@ export function TenantDetailModal({ isOpen, onClose, tenant, onEdit }: TenantDet
                 <p className="text-base font-semibold text-slate-900 dark:text-slate-100">
                   {detail.name}
                 </p>
-                <StatusBadge status={stateVariantMap[detail.state?.name ?? ''] ?? 'default'} />
+                <Badge
+                    label={detail.state?.name ?? 'Sin estado'}
+                    variant={stateVariantMap[detail.state?.name ?? ''] === 'success' ? 'success'
+                        : stateVariantMap[detail.state?.name ?? ''] === 'danger' ? 'danger'
+                        : stateVariantMap[detail.state?.name ?? ''] === 'warning' ? 'warning'
+                        : 'default'}
+                />
               </div>
               <p className="text-sm text-slate-500">{detail.email}</p>
               <p className="mt-0.5 font-mono text-xs text-slate-400">{detail.schema_name}</p>
