@@ -45,3 +45,23 @@ export interface TenantFilters {
   search: string
   state_id: number | null
 }
+
+export interface Subscription {
+  id: number
+  start_date: string | null
+  end_date: string | null
+  plan: {
+    id: number
+    name: string
+    price: number
+    currency: string
+  } | null
+  state: {
+    id: number
+    name: string
+  } | null
+}
+
+export interface TenantDetail extends Tenant {
+  subscriptions: Subscription[]
+}
