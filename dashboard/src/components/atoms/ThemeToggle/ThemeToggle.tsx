@@ -7,7 +7,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={toggleDarkMode}
-      className="flex w-full items-center justify-between px-3 py-2 text-sm text-slate-600 dark:text-slate-300"
+      className="flex w-full items-center justify-between px-4 py-2 text-sm text-slate-600 transition-colors hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-800"
       aria-label="Cambiar modo oscuro"
     >
       <div className="flex items-center gap-2">
@@ -31,15 +31,14 @@ export function ThemeToggle() {
         <span>{isDarkMode ? 'Modo claro' : 'Modo oscuro'}</span>
       </div>
 
-      {/* Switch */}
       <div className={cn(
-        'relative h-5 w-9 rounded-full transition-colors duration-200',
+        'relative ml-2 h-5 w-9 shrink-0 rounded-full transition-colors duration-200 cursor-pointer',
         isDarkMode ? 'bg-violet-600' : 'bg-slate-200'
       )}>
-        <span className={cn(
-          'absolute top-0.5 h-4 w-4 rounded-full bg-white shadow-sm transition-transform duration-200',
-          isDarkMode ? 'translate-x-4' : 'translate-x-0.5'
-        )} />
+        <span
+          className="absolute left-0.5 top-0.5 h-4 w-4 rounded-full bg-white shadow-sm transition-transform duration-200"
+          style={{ transform: isDarkMode ? 'translateX(16px)' : 'translateX(0px)' }}
+        />
       </div>
     </button>
   )

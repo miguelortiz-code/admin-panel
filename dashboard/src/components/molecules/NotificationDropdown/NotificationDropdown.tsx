@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from 'react'
 import { cn } from '../../../utils/cn'
 import type { Notification } from '../../../types/notification.types'
 
-// Data temporal — después vendrá de Supabase en tiempo real
 const MOCK_NOTIFICATIONS: Notification[] = [
   {
     id: '1',
@@ -60,10 +59,6 @@ export function NotificationDropdown() {
     setNotifications((prev) => prev.filter((n) => n.id !== id))
   }
 
-  const handleMarkAllRead = () => {
-    setNotifications((prev) => prev.map((n) => ({ ...n, read: true })))
-  }
-
   return (
     <div ref={menuRef} className="relative">
 
@@ -77,8 +72,6 @@ export function NotificationDropdown() {
           <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
           <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
         </svg>
-
-        {/* Badge contador */}
         {unreadCount > 0 && (
           <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-xs font-medium text-white">
             {unreadCount > 9 ? '9+' : unreadCount}
@@ -105,14 +98,18 @@ export function NotificationDropdown() {
                 </span>
               )}
             </div>
-            {unreadCount > 0 && (
-              <button
-                onClick={handleMarkAllRead}
-                className="text-xs text-violet-600 hover:text-violet-700 dark:text-violet-400"
-              >
-                Marcar todas como leídas
-              </button>
-            )}
+
+            {/* X para cerrar */}
+            <button
+              onClick={() => setIsOpen(false)}
+              className="rounded p-1 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600 dark:hover:bg-slate-800"
+              aria-label="Cerrar notificaciones"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
           </div>
 
           {/* Lista */}
@@ -136,7 +133,7 @@ export function NotificationDropdown() {
                   )}
                 >
                   {/* Indicador no leída */}
-                  <div className="mt-1.5 flex-shrink-0">
+                  <div className="mt-1.5 shrink-0">
                     <div className={cn(
                       'h-2 w-2 rounded-full',
                       notification.read ? 'bg-transparent' : 'bg-violet-500'
@@ -159,7 +156,7 @@ export function NotificationDropdown() {
                   {/* Botón eliminar */}
                   <button
                     onClick={() => handleDelete(notification.id)}
-                    className="flex-shrink-0 rounded p-1 text-slate-300 transition-colors hover:bg-slate-100 hover:text-slate-500 dark:hover:bg-slate-800"
+                    className="shrink-0 rounded p-1 text-slate-300 transition-colors hover:bg-slate-100 hover:text-slate-500 dark:hover:bg-slate-800"
                     aria-label="Eliminar notificación"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

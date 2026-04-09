@@ -95,8 +95,8 @@ export function Sidebar() {
 
   return (
     <aside className={cn(
-      'flex h-screen flex-col border-r border-slate-200 bg-white transition-all duration-300 ease-in-out',
-      'dark:border-slate-700 dark:bg-slate-900',
+      'flex h-screen flex-col border-r border-slate-200 bg-white transition-all duration-300 ease-in-out dark:border-slate-700 dark:bg-slate-900',
+      '',
       isSidebarOpen ? 'w-64' : 'w-16'
     )}>
 
