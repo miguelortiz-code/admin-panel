@@ -1,0 +1,47 @@
+export interface Tenant {
+  id: number
+  state_id: number
+  name: string
+  nit: string
+  email: string
+  phone: string | null
+  city: string | null
+  address: string | null
+  logo_url: string | null
+  website: string | null
+  owner_name: string | null
+  owner_email: string | null
+  schema_name: string
+  expiration_date: string | null
+  created_at: string
+  updated_at: string
+  state?: {
+    id: number
+    name: string
+  }
+}
+
+export interface TenantInsert {
+  state_id: number
+  name: string
+  nit: string
+  email: string
+  phone?: string
+  city?: string
+  address?: string
+  logo_url?: string
+  website?: string
+  owner_name?: string
+  owner_email?: string
+  schema_name: string
+  expiration_date?: string
+}
+
+export interface TenantUpdate extends Partial<TenantInsert> {
+  id: number
+}
+
+export interface TenantFilters {
+  search: string
+  state_id: number | null
+}

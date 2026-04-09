@@ -1,5 +1,5 @@
-import { supabase } from '../lib/supabase'
-import type { TenantInsert, TenantUpdate, TenantFilters } from '../types/tenant.types'
+import { supabase } from '../../../lib/supabase'
+import type { TenantInsert, TenantUpdate, TenantFilters } from '../../../types/tenant.types'
 
 const generateSchemaName = (name: string): string => {
   return 'tenant_' + name
