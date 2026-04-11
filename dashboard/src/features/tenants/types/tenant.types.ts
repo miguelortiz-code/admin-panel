@@ -12,7 +12,6 @@ export interface Tenant {
   owner_name: string | null
   owner_email: string | null
   schema_name: string
-  expiration_date: string | null
   created_at: string
   updated_at: string
   state?: {
@@ -34,7 +33,6 @@ export interface TenantInsert {
   owner_name?: string
   owner_email?: string
   schema_name: string
-  expiration_date?: string
 }
 
 export interface TenantUpdate extends Partial<TenantInsert> {
