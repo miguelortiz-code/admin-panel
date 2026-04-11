@@ -5,7 +5,7 @@ import { DashboardLayout } from '../components/templates/DashboardLayout'
 import { FullscreenLoader } from '../components/templates/FullscreenLoader'
 
 const DashboardPage = lazy(() => import('../pages/Dashboard'))
-const SpasPage      = lazy(() => import('../pages/Spas'))
+const SpasPage      = lazy(() => import('../pages/Tenants'))
 const UsersPage     = lazy(() => import('../pages/Users'))
 const AuditPage     = lazy(() => import('../pages/Audit'))
 const SettingsPage  = lazy(() => import('../pages/Settings'))
