@@ -19,7 +19,7 @@ export function FormField({ id, label, required, error, children, className }: F
       </Label>
       {children}
       {error && (
-        <p className="text-xs text-red-500">{error}</p>
+        <p className="text-xs text-red-500 dark:text-red-400">{error}</p>
       )}
     </div>
   )

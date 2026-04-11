@@ -174,7 +174,7 @@ export function TenantsTable({ onEdit, onDetail }: TenantsTableProps) {
             }))
             setPage(1)
           }}
-          className="h-9 rounded-lg border border-slate-200 bg-white px-3 text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-violet-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300"
+          className="h-9 rounded-lg border px-3 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 border-slate-200 bg-white text-slate-600 hover:border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:border-slate-600"
         >
           <option value="">Todos los estados</option>
           <option value="1">Activo</option>

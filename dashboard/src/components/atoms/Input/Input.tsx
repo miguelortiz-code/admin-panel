@@ -13,14 +13,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         <input
           ref={ref}
           className={cn(
-            'flex h-9 w-full rounded-lg border bg-white px-3 py-2 text-sm transition-colors',
-            'placeholder:text-slate-400',
+            'flex h-9 w-full rounded-lg border px-3 py-2 text-sm transition-colors',
+            'bg-white text-slate-900 placeholder:text-slate-400',
+            'dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-500',
             'focus:outline-none focus:ring-2 focus:ring-offset-1',
-            'disabled:cursor-not-allowed disabled:opacity-50',
+            'disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer',
             rightElement && 'pr-10',
             error
               ? 'border-red-400 focus:ring-red-400'
-              : 'border-slate-200 hover:border-slate-300 focus:ring-violet-500',
+              : 'border-slate-200 hover:border-slate-300 focus:ring-violet-500 dark:border-slate-700 dark:hover:border-slate-600',
             className
           )}
           {...props}

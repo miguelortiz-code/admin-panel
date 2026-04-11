@@ -214,14 +214,14 @@ useEffect(() => {
 
         <FormField id="state_id" label="Estado" required>
           <select
-            id="state_id"
-            value={form.state_id}
-            onChange={(e) => handleChange('state_id', Number(e.target.value))}
-            className="flex h-9 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
-          >
-            {spaStates.map((s) => (
-              <option key={s.id} value={s.id}>{s.name}</option>
-            ))}
+              id="state_id"
+              value={form.state_id}
+              onChange={(e) => handleChange('state_id', Number(e.target.value))}
+              className="flex h-9 w-full rounded-lg border px-3 py-2 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-violet-500 border-slate-200 bg-white text-slate-900 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
+            >
+              {spaStates.map((s) => (
+                <option key={s.id} value={s.id}>{s.name}</option>
+              ))}
           </select>
         </FormField>
 

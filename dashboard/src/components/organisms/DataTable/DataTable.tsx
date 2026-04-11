@@ -25,18 +25,16 @@ export function DataTable<T>({
   keyExtractor,
 }: DataTableProps<T>) {
   return (
-    <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
+    <div className="overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800">
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
-
-          {/* Head */}
-          <thead className="border-b border-slate-200 bg-slate-50">
+          <thead className="border-b border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-900">
             <tr>
               {columns.map((col) => (
                 <th
                   key={col.key}
                   className={cn(
-                    'px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-slate-500',
+                    'px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400',
                     col.className
                   )}
                 >
@@ -45,9 +43,7 @@ export function DataTable<T>({
               ))}
             </tr>
           </thead>
-
-          {/* Body */}
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
             {isLoading ? (
               <tr>
                 <td colSpan={columns.length} className="py-12 text-center">
@@ -58,7 +54,7 @@ export function DataTable<T>({
               </tr>
             ) : data.length === 0 ? (
               <tr>
-                <td colSpan={columns.length} className="py-12 text-center text-slate-400">
+                <td colSpan={columns.length} className="py-12 text-center text-slate-400 dark:text-slate-500">
                   {emptyMessage}
                 </td>
               </tr>
@@ -66,10 +62,10 @@ export function DataTable<T>({
               data.map((row) => (
                 <tr
                   key={keyExtractor(row)}
-                  className="transition-colors hover:bg-slate-50"
+                  className="transition-colors hover:bg-slate-50 dark:hover:bg-slate-700/50"
                 >
                   {columns.map((col) => (
-                    <td key={col.key} className={cn('px-4 py-3 text-slate-700', col.className)}>
+                    <td key={col.key} className={cn('px-4 py-3 text-slate-700 dark:text-slate-300', col.className)}>
                       {col.render(row)}
                     </td>
                   ))}
@@ -77,7 +73,6 @@ export function DataTable<T>({
               ))
             )}
           </tbody>
-
         </table>
       </div>
     </div>
